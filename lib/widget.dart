@@ -13,6 +13,7 @@ class FloatingBottomNavList extends StatelessWidget {
     required this.onTap,
     this.textStyle = const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
     required this.activeColor,
+    this.disabledColor = Colors.grey,
     this.backgroundRadius = 20,
   }) : super(key: key);
   final int selectedIndex;
@@ -25,6 +26,7 @@ class FloatingBottomNavList extends StatelessWidget {
   final ValueChanged<int> onTap;
   final TextStyle textStyle;
   final Color activeColor;
+  final Color disabledColor;
   final double backgroundRadius;
   @override
   Widget build(BuildContext context) {
@@ -48,9 +50,7 @@ class FloatingBottomNavList extends StatelessWidget {
                 final _selectedColor = activeColor;
                 final _selectedColorWithOpacity = activeColor.withOpacity(0.1);
 
-                final _inactiveColor = _brightness == Brightness.light
-                    ? const Color(0xFF404040)
-                    : const Color(0xF2FFFFFF);
+                final _inactiveColor = disabledColor;
 
                 final _rightPadding = itemPadding.right;
                 return _FloatingBottonNavListItemWidget(
