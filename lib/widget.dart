@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class FloatingBottonNavList extends StatelessWidget {
-  const FloatingBottonNavList({
+class FloatingBottomNavList extends StatelessWidget {
+  const FloatingBottomNavList({
     Key? key,
     required this.selectedIndex,
     this.curve = Curves.easeOutQuint,
