@@ -13,6 +13,7 @@ class FloatingBottonNavList extends StatelessWidget {
     required this.onTap,
     this.textStyle = const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
     required this.activeColor,
+    this.backgroundRadius = 20,
   }) : super(key: key);
   final int selectedIndex;
   final Curve curve;
@@ -24,13 +25,17 @@ class FloatingBottonNavList extends StatelessWidget {
   final ValueChanged<int> onTap;
   final TextStyle textStyle;
   final Color activeColor;
+  final double backgroundRadius;
   @override
   Widget build(BuildContext context) {
     final _brightness = Theme.of(context).brightness;
 
     return Container(
       height: height?.toDouble(),
-      decoration: BoxDecoration(color: backgroundColor),
+      decoration: BoxDecoration(
+          // boxShadow: [],
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(backgroundRadius)),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         child: SingleChildScrollView(
