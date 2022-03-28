@@ -6,3 +6,6 @@
 ## 0.0.2
 
 * HJG 
+
+## 0.0.3
+* update centralized view

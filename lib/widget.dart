@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class FloatingBottomNavList extends StatelessWidget {
-  const FloatingBottomNavList({
+class ScrollableNavBar extends StatelessWidget {
+  const ScrollableNavBar({
     Key? key,
     required this.selectedIndex,
     this.curve = Curves.easeOutQuint,
@@ -13,8 +13,6 @@ class FloatingBottomNavList extends StatelessWidget {
     required this.onTap,
     this.textStyle = const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
     required this.activeColor,
-    this.disabledColor = Colors.grey,
-    this.backgroundRadius = 20,
   }) : super(key: key);
   final int selectedIndex;
   final Curve curve;
@@ -22,54 +20,54 @@ class FloatingBottomNavList extends StatelessWidget {
   final num? height;
   final Color? backgroundColor;
   final EdgeInsets itemPadding;
-  final List<FloatingBottomNavListItem> items;
+  final List<CustomBottomBarItem> items;
   final ValueChanged<int> onTap;
   final TextStyle textStyle;
   final Color activeColor;
-  final Color disabledColor;
-  final double backgroundRadius;
   @override
   Widget build(BuildContext context) {
     final _brightness = Theme.of(context).brightness;
 
     return Container(
       height: height?.toDouble(),
-      decoration: BoxDecoration(
-          // boxShadow: [],
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(backgroundRadius)),
+      decoration: BoxDecoration(color: backgroundColor),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(
-              items.length,
-              (int index) {
-                final _selectedColor = activeColor;
-                final _selectedColorWithOpacity = activeColor.withOpacity(0.1);
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(
+                items.length,
+                (int index) {
+                  final _selectedColor = activeColor;
+                  final _selectedColorWithOpacity =
+                      activeColor.withOpacity(0.1);
 
-                final _inactiveColor = disabledColor;
+                  final _inactiveColor = _brightness == Brightness.light
+                      ? const Color(0xFF404040)
+                      : const Color(0xF2FFFFFF);
 
-                final _rightPadding = itemPadding.right;
-                return _FloatingBottonNavListItemWidget(
-                  index: index,
-                  key: items.elementAt(index).key,
-                  isSelected: index == selectedIndex,
-                  selectedColor: _selectedColor,
-                  selectedColorWithOpacity: _selectedColorWithOpacity,
-                  inactiveColor: _inactiveColor,
-                  rightPadding: _rightPadding,
-                  curve: curve,
-                  duration: duration,
-                  itemPadding: itemPadding,
-                  textStyle: textStyle,
-                  icon: items.elementAt(index).icon,
-                  title: items.elementAt(index).title,
-                  onTap: () => onTap(index),
-                );
-              },
+                  final _rightPadding = itemPadding.right;
+                  return _CustomBottomBarItemWidget(
+                    index: index,
+                    key: items.elementAt(index).key,
+                    isSelected: index == selectedIndex,
+                    selectedColor: _selectedColor,
+                    selectedColorWithOpacity: _selectedColorWithOpacity,
+                    inactiveColor: _inactiveColor,
+                    rightPadding: _rightPadding,
+                    curve: curve,
+                    duration: duration,
+                    itemPadding: itemPadding,
+                    textStyle: textStyle,
+                    icon: items.elementAt(index).icon,
+                    title: items.elementAt(index).title,
+                    onTap: () => onTap(index),
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -78,8 +76,8 @@ class FloatingBottomNavList extends StatelessWidget {
   }
 }
 
-class _FloatingBottonNavListItemWidget extends StatelessWidget {
-  const _FloatingBottonNavListItemWidget(
+class _CustomBottomBarItemWidget extends StatelessWidget {
+  const _CustomBottomBarItemWidget(
       {Key? key,
       required this.index,
       required this.isSelected,
@@ -166,7 +164,7 @@ class _FloatingBottonNavListItemWidget extends StatelessWidget {
                                 color: Color.lerp(
                                     Colors.transparent, Colors.white, value),
                               ),
-                              child: title,
+                              child: isSelected ? title : Container(),
                             ),
                           ),
                         ),
@@ -183,8 +181,8 @@ class _FloatingBottonNavListItemWidget extends StatelessWidget {
   }
 }
 
-class FloatingBottomNavListItem {
-  FloatingBottomNavListItem({
+class CustomBottomBarItem {
+  CustomBottomBarItem({
     this.key,
     required this.icon,
     required this.title,
