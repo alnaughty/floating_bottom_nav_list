@@ -234,7 +234,9 @@ class FloatingBottomNavListItem {
     this.key,
     required this.icon,
     required this.title,
+    required this.id,
   });
+  final int id;
   final Key? key;
   final Widget icon;
   final Widget title;

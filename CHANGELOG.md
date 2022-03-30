@@ -9,3 +9,6 @@
 
 ## 0.0.3
 * update centralized view
+
+## 0.0.4
+* added id on custom items
